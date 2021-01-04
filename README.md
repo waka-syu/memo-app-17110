@@ -1,24 +1,70 @@
-# README
+# memo-app-17110
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# テーブル設計
 
-Things you may want to cover:
+## users テーブル
 
-* Ruby version
+| Column   | Type   | Options                  |
+| -------- | ------ | ------------------------ |
+| name     | string | null: false              |
+| email    | string | null: false unique: true |
+| password | string | null: false              |
 
-* System dependencies
+### Association
 
-* Configuration
+- has_many :group_users
+- has_many :groups, through: group_users
+- has_many :memos
+- has_many :comments
 
-* Database creation
+## groups テーブル
 
-* Database initialization
+| Column     | Type     | Options       |
+| ---------- | -------- | ------------- |
+| name       | string   | null: false   |
 
-* How to run the test suite
+### Association
 
-* Services (job queues, cache servers, search engines, etc.)
+- has_many :group_users
+- has_many :users, through: group_users
+- has_many :memos
 
-* Deployment instructions
+## group_users テーブル
+| Column     | Type       | Options                        |
+| ---------- | ---------- | ------------------------------ |
+| user       | references | null: false, foreign_key: true |
+| group      | references | null: false, foreign_key: true |
 
-* ...
+### Association
+
+- belongs_to :group
+- belongs_to :user
+
+
+## memos テーブル
+
+| Column      | Type       | Options                        |
+| ----------- | ---------- | ------------------------------ |
+| title       | string     | null: false                    |
+| content     | text       | null: false                    |
+| create_date | date       | null: false                    |
+| user        | references | null: false, foreign_key: true |
+| group       | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :group
+
+## comments テーブル
+
+| Column      | Type       | Options                        |
+| ----------- | ---------- | ------------------------------ |
+| content     | string     | null: false                    |
+| user        | references | null: false, foreign_key: true |
+| memo        | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :memo
