@@ -9,7 +9,6 @@
 | name     | string  | null: false              |
 | email    | string  | null: false unique: true |
 | password | string  | null: false              |
-| job_id   | integer | null: false              |
 
 ### Association
 
