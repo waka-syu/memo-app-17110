@@ -21,7 +21,7 @@
 
 | Column     | Type     | Options       |
 | ---------- | -------- | ------------- |
-| name       | string   | null: false   |
+| group_name | string   | null: false   |
 
 ### Association
 
